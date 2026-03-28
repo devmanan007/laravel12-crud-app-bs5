@@ -13,7 +13,8 @@ class NoteController extends Controller
      */
     public function index()
     {
-        //
+        $notes = Note::paginate(5);
+        return view('notes.index', compact('notes'));
     }
 
     /**
@@ -30,7 +31,7 @@ class NoteController extends Controller
     public function store(StoreNoteRequest $request)
     {
         Note::create($request->validated());
-        return redirect()->route('notes.create')->with('success', 'Note created successfully.');
+        return redirect()->route('notes.index')->with('success', 'Note created successfully.');
     }
 
     /**
